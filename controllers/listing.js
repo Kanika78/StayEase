@@ -15,33 +15,25 @@ module.exports.new = (req , res)=>{
 }
 
 module.exports.create = async(req , res, next)=>{
-//let {title , description , image , price , location , country} = req.body;// write easy syntax we make them as key value pair
-// let listing = req.body.listing;
-// if(!req.body.listing){
-//   throw new ExpressError(400, "Send valid data for listing" );
-// }
-
-// let result = listingSchema.validate(req.body)//validate the listing with listingschema created in joi
-// console.log(result);
-// if(result.error){
-//   throw new ExpressError(400 , result.error);
-// }
-let response = await geocodingClient.forwardGeocode({
-  query: req.body.listing.location,
-  limit: 1
-})
-.send()
-
-
-
-const { title, description, price, location, country, category } = req.body.listing;
-    const listing = new Listing({ title, description, price, location, country, category });
-    listing.image = { url: req.file.path, filename: req.file.filename };
-    listing.owner = req.user._id;
-    await listing.save();
-    req.flash('success', 'Successfully created a new listing');
-    res.redirect(`/listings/${listing._id}`);
-}
+        let response = await geocodingClient.forwardGeocode({
+            query: req.body.listing.location,
+            limit: 1
+          })
+        .send();
+    
+        let url = req.file.path;
+        let filename = req.file.filename;
+        const newListing = new Listing(req.body.listing);
+        newListing.owner = req.user._id;
+        newListing.image = { url, filename };
+    
+        newListing.geometry = response.body.features[0].geometry;
+    
+        let savedListing = await newListing.save();
+        console.log(savedListing);
+        req.flash("success", "New Listing Created");
+        res.redirect("/listings");
+};
 
 module.exports.show = async(req , res)=>{
 let { id } = req.params;

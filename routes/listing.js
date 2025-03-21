@@ -14,12 +14,12 @@ router.get("/" , wrapAsync(listingController.index));
 //NEW ROUTE
 router.get("/new" , isLoggedIn, listingController.new);
 
+//CREATE ROUTE
+router.post("/" ,isLoggedIn,upload.single('listing[image]'),validateListing, wrapAsync(listingController.create));
+
 router.get("/filter/:q", wrapAsync(listingController.filterListings));
 
 router.get("/search", wrapAsync(listingController.search));
-
-//CREATE ROUTE
-router.post("/" ,isLoggedIn,upload.single('listing[image]'),validateListing, wrapAsync(listingController.create));
 
 
 //show route that show specific listings data
