@@ -34,16 +34,13 @@ let response = await geocodingClient.forwardGeocode({
 
 
 
-let url = req.file.path;
-let filename = req.file.filename;
-const newListing = new Listing(req.body.listing);
-newListing.owner = req.user._id; //this is used to store the user id in the listing
-newListing.image = {url , filename};
-newListing.geometry = response.body.features[0].geometry;
-let savedListing = await newListing.save();
-console.log(savedListing);
-req.flash("success" , "New Listing Created");
-res.redirect("/listings");
+const { title, description, price, location, country, category } = req.body.listing;
+    const listing = new Listing({ title, description, price, location, country, category });
+    listing.image = { url: req.file.path, filename: req.file.filename };
+    listing.owner = req.user._id;
+    await listing.save();
+    req.flash('success', 'Successfully created a new listing');
+    res.redirect(`/listings/${listing._id}`);
 }
 
 module.exports.show = async(req , res)=>{
@@ -77,16 +74,15 @@ module.exports.update = async(req , res)=>{
 // if(!req.body.listing){
 //   throw new ExpressError(400, "Send valid data for listing" );
 // }
-let { id } = req.params;
-let listing = await Listing.findByIdAndUpdate(id , { ...req.body.listing});
-if(typeof req.file !== "undefined"){
-  let url = req.file.path;
-  let filename = req.file.filename;
-  listing.image = {url , filename};
-  await listing.save();
+const { id } = req.params;
+const { title, description, price, location, country, category } = req.body.listing;
+const listing = await Listing.findByIdAndUpdate(id, { title, description, price, location, country, category });
+if (req.file) {
+    listing.image = { url: req.file.path, filename: req.file.filename };
 }
-req.flash("success" , "Listing updated");
-res.redirect(`/listings/${id}`)
+await listing.save();
+req.flash('success', 'Successfully updated the listing');
+res.redirect(`/listings/${listing._id}`);
 }
 
 module.exports.delete = async(req , res)=>{
