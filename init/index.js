@@ -1,11 +1,8 @@
-if(process.env.NODE_ENV != "production") {
-  require("dotenv").config();
-}
 const mongoose = require("mongoose");
 const initData = require("./data.js");
 const Listing = require("../models/listing.js");
 
-const dburl = process.env.ATLASDB_URL;
+const MONGO_URL = "mongodb://127.0.0.1:27017/WanderLust";
 
 main()
   .then(() => {
@@ -15,15 +12,9 @@ main()
     console.log(err);
   });
 
-  async function main() {
-    if (!dburl) {
-      throw new Error("Database URL not defined in environment variables");
-    }
-    await mongoose.connect(dburl, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-  }
+async function main() {
+  await mongoose.connect(MONGO_URL);
+}
 
 const initDB = async () => {
   await Listing.deleteMany({}); // delete any data already present in database
