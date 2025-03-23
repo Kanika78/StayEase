@@ -1,5 +1,4 @@
 {
-    "type": "commonjs",
     "engine": {
         "node": "22.11.0"
     },
