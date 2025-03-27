@@ -9,6 +9,7 @@ const upload = multer({storage});
 const listingController = require("../controllers/listing.js");
 
 //index route that show all listings
+router.get("/wanderlust-rsc4.onrender.com" , listingController.firstpage);
 router.get("/" , wrapAsync(listingController.index));
 
 //NEW ROUTE

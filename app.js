@@ -132,10 +132,6 @@ app.use((err , req , res , next)=>{
   // res.send("something went wrong");
 });
 
-app.get("/wanderlust-rsc4.onrender.com" , (req , res)=>{
-    res.redirect("/listings");
-})
-
 app.listen(8080, (req , res)=>{
     console.log("server listening at 8080");
 });
