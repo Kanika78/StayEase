@@ -132,8 +132,8 @@ app.use((err , req , res , next)=>{
   // res.send("something went wrong");
 });
 
-app.get("/" , (req , res)=>{
-    res.send("Working");
+app.get("/wanderlust-rsc4.onrender.com" , (req , res)=>{
+    res.redirect("/listings");
 })
 
 app.listen(8080, (req , res)=>{
