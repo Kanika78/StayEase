@@ -5,7 +5,7 @@ const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 
 module.exports.firstpage = (req, res) => {
-    res.redirect("/listings");
+    res.redirect("wanderlust-rsc4.onrender.com/listings");
 }
 module.exports.index = async (req , res)=>{
     const allListings = await Listing.find({});
