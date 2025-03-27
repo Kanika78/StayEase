@@ -3,10 +3,6 @@ const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
-
-module.exports.firstpage = (req, res) => {
-    res.redirect("wanderlust-rsc4.onrender.com/listings");
-}
 module.exports.index = async (req , res)=>{
     const allListings = await Listing.find({});
     res.render("listings/index.ejs", {allListings});

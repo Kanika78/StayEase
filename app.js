@@ -131,7 +131,9 @@ app.use((err , req , res , next)=>{
 
   // res.send("something went wrong");
 });
-
+app.get("/" , (req , res)=>{
+  res.send("Working");
+})  
 app.listen(8080, (req , res)=>{
     console.log("server listening at 8080");
 });
