@@ -1,9 +1,9 @@
 # StayEase
-![image]{https://github.com/user-attachments/assets/28473bea-19ea-401e-aeb5-d74aa4f55898}
+![image](https://github.com/user-attachments/assets/28473bea-19ea-401e-aeb5-d74aa4f55898)
 StayEase is a travel platform that allows users to explore and share their favourite destinations. The project is built using the MERN stack (MongoDB, Express.js, React.js, Node.js) and incorporates various technologies for features like image upload, user authentication, and interactive maps.
 
 # Live Project
-Check out the live project: [Link Of project]{https://stayease-zm7x.onrender.com}
+Check out the live project: [Link Of project](https://stayease-zm7x.onrender.com)
 
 # Technologies used
 - Node.js
